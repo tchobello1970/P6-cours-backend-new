@@ -1,5 +1,10 @@
 const express = require('express');
 const router = express.Router();
+
+// Importation du middleware d'authentification
+const auth = require('../middlewares/auth');
+
+
 const stuffCtrl = require('../controllers/stuff');
 
 /**
@@ -8,7 +13,7 @@ const stuffCtrl = require('../controllers/stuff');
  * @access Public
  * @controller getAllStuff
  */
-router.get('/', stuffCtrl.getAllStuff);
+router.get('/', auth, stuffCtrl.getAllStuff);
 
 /**
  * Route pour créer un nouvel élément
@@ -16,7 +21,7 @@ router.get('/', stuffCtrl.getAllStuff);
  * @access Public
  * @controller createThing
  */
-router.post('/', stuffCtrl.createThing);
+router.post('/', auth, stuffCtrl.createThing);
 
 /**
  * Route pour récupérer un élément spécifique par ID
@@ -24,7 +29,7 @@ router.post('/', stuffCtrl.createThing);
  * @access Public
  * @controller getOneThing
  */
-router.get('/:id', stuffCtrl.getOneThing);
+router.get('/:id', auth, stuffCtrl.getOneThing);
 
 /**
  * Route pour modifier un élément spécifique par ID
@@ -32,7 +37,7 @@ router.get('/:id', stuffCtrl.getOneThing);
  * @access Public
  * @controller modifyThing
  */
-router.put('/:id', stuffCtrl.modifyThing);
+router.put('/:id', auth, stuffCtrl.modifyThing);
 
 /**
  * Route pour supprimer un élément spécifique par ID
@@ -40,6 +45,6 @@ router.put('/:id', stuffCtrl.modifyThing);
  * @access Public
  * @controller deleteThing
  */
-router.delete('/:id', stuffCtrl.deleteThing);
+router.delete('/:id', auth, stuffCtrl.deleteThing);
 
 module.exports = router;
