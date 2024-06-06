@@ -1,11 +1,19 @@
+// Importation du module express pour la création de routes
 const express = require('express');
+// Création d'un routeur express
 const router = express.Router();
+// Importation du contrôleur pour les opérations sur les objets
+const stuffCtrl = require('../controllers/stuff');
 
 // Importation du middleware d'authentification
 const auth = require('../middlewares/auth');
+// Importation du middleware de configuration multer pour la gestion des fichiers uploadés
+const multer = require('../middlewares/multer-config')
 
 
-const stuffCtrl = require('../controllers/stuff');
+
+// Définition des différentes routes avec les middlewares appropriés et les fonctions de contrôleur associées
+
 
 /**
  * Route pour récupérer tous les éléments
@@ -21,7 +29,7 @@ router.get('/', auth, stuffCtrl.getAllStuff);
  * @access Public
  * @controller createThing
  */
-router.post('/', auth, stuffCtrl.createThing);
+router.post('/', auth, multer, stuffCtrl.createThing);
 
 /**
  * Route pour récupérer un élément spécifique par ID
@@ -37,7 +45,7 @@ router.get('/:id', auth, stuffCtrl.getOneThing);
  * @access Public
  * @controller modifyThing
  */
-router.put('/:id', auth, stuffCtrl.modifyThing);
+router.put('/:id', auth, multer, stuffCtrl.modifyThing);
 
 /**
  * Route pour supprimer un élément spécifique par ID
